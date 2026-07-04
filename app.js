@@ -1,13 +1,20 @@
+require('dotenv').config(); // Load environment variables from .env file
+
 const express = require('express');
+
+const connectDB = require('./config/db'); // Importing the connectDB function from config/db.js    
+
+const homeRoute = require('./routes/homeRoute'); // Importing the homeRoute module 
+
 const app = express();
 
-const PORT = 5000;
+connectDB();
 
-const homeRoute = require('./routes/homeRoute');
+const PORT = process.env.PORT || 3000; // Setting the port from environment variable or default to 3000
 
 app.use(express.json()); // acts as a middleware to parse incoming JSON requests
 
-app.use('/', homeRoute);
+app.use('/', homeRoute); // Mounting the homeRoute module to the root path
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
