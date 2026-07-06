@@ -25,6 +25,16 @@ const studentSchema = new mongoose.Schema(
             type: String,
             enum: ["Medical","Non-Medical"],
             required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true
+        },
+        contact: {
+            type: String,
+            required: true,
         }
     },
     {
