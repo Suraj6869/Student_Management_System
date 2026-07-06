@@ -1,23 +1,28 @@
-require('dotenv').config(); // Load environment variables from .env file
+require("dotenv").config();
 
-const express = require('express');
+const express = require("express");
 
-const connectDB = require('./config/db'); // Importing the connectDB function from config/db.js    
+const connectDB = require("./config/db");
 
-const homeRoute = require('./routes/homeRoute'); // Importing the homeRoute module 
+const homeRoute = require("./routes/homeRoute");
+const studentRoutes = require("./routes/studentRoutes");
+
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// Connect Database
 connectDB();
 
-const PORT = process.env.PORT || 3000; // Setting the port from environment variable or default to 3000
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const Student = require('./models/Students'); // Importing the Student model from models/Students.js
+// Routes
+app.use("/", homeRoute);
+app.use("/students", studentRoutes);
 
-app.use(express.json()); // acts as a middleware to parse incoming JSON requests
-
-app.use('/', homeRoute); // Mounting the homeRoute module to the root path
-
+// Start Server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
