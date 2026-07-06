@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const studentSchema = new mongoose.Schema(
     {
         uid: {
-            type: varchar,
+            type: String,
             required: true,
             unique: true
         },
@@ -32,5 +32,4 @@ const studentSchema = new mongoose.Schema(
     }
 );
 
-
-    
+module.exports = mongoose.model("Student", studentSchema);
