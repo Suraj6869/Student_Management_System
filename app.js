@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 
 const homeRoute = require("./routes/homeRoute");
 const studentRoutes = require("./routes/studentRoutes");
+const teacherRoutes = require("./routes/teacherRoutes");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", homeRoute);
 app.use("/students", studentRoutes);
+app.use("/teachers", teacherRoutes);
 
 const PORT = process.env.PORT || 5000;
 
