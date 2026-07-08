@@ -59,11 +59,11 @@ const registerStudent = async (req, res) => {
         });
 
     } catch (error) {
-
         return res.status(500).json({
             success: false,
-            message: error.message
-        });
+            message: "Something went wrong.",
+            error: error.message
+});
 
     }
 };
@@ -80,12 +80,12 @@ const getAllStudents = async (req, res) => {
             students
         });
 
-    } catch (error) {
-
+    }  catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message
-        });
+            message: "Something went wrong.",
+            error: error.message
+});
 
     }
 };
@@ -110,12 +110,12 @@ const getStudentByUID = async (req, res) => {
             student
         });
 
-    } catch (error) {
-
+    }  catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message
-        });
+            message: "Something went wrong.",
+            error: error.message
+});
 
     }
 };
@@ -148,12 +148,12 @@ const updateStudent = async (req, res) => {
             student: updatedStudent
         });
 
-    } catch (error) {
-
+    }  catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message
-        });
+            message: "Something went wrong.",
+            error: error.message
+});
 
     }
 };
@@ -179,12 +179,12 @@ const deleteStudent = async (req, res) => {
             student: deletedStudent
         });
 
-    } catch (error) {
-
+    }  catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message
-        });
+            message: "Something went wrong.",
+            error: error.message
+});
 
     }
 };
