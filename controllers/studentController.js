@@ -3,12 +3,21 @@ const Student = require("../models/StudentModel");
 // Register Student
 const registerStudent = async (req, res) => {
     try {
-        const { name, age, gender, batch, email, contact } = req.body;
 
+        const {
+            name,
+            age,
+            gender,
+            batch,
+            email,
+            contact
+        } = req.body;
+
+        // Check required fields
         if (!name || !age || !gender || !batch || !email || !contact) {
             return res.status(400).json({
                 success: false,
-                message: "Please provide all required fields."
+                message: "Please fill all required fields."
             });
         }
 
@@ -22,18 +31,17 @@ const registerStudent = async (req, res) => {
             });
         }
 
-        // Generate UID
-        const lastStudent = await Student.findOne().sort({ createdAt: -1 });
+        // Generate UID (1,2,3...)
+        const lastStudent = await Student.findOne().sort({ uid: -1 });
 
-        let uid = "STU001";
+        let uid = 1;
 
         if (lastStudent) {
-            const lastNumber = parseInt(lastStudent.uid.replace("STU", ""));
-            uid = `STU${String(lastNumber + 1).padStart(3, "0")}`;
+            uid = Number(lastStudent.uid) + 1;
         }
 
-        const student = await Student.create({
-            uid,
+        const student = new Student({
+            uid: uid.toString(),
             name,
             age,
             gender,
@@ -42,6 +50,8 @@ const registerStudent = async (req, res) => {
             contact
         });
 
+        await student.save();
+
         return res.status(201).json({
             success: true,
             message: "Student registered successfully.",
@@ -49,10 +59,12 @@ const registerStudent = async (req, res) => {
         });
 
     } catch (error) {
+
         return res.status(500).json({
             success: false,
             message: error.message
         });
+
     }
 };
 
@@ -60,7 +72,7 @@ const registerStudent = async (req, res) => {
 const getAllStudents = async (req, res) => {
     try {
 
-        const students = await Student.find().sort({ createdAt: -1 });
+        const students = await Student.find().sort({ uid: 1 });
 
         return res.status(200).json({
             success: true,
@@ -82,9 +94,9 @@ const getAllStudents = async (req, res) => {
 const getStudentByUID = async (req, res) => {
     try {
 
-        const student = await Student.findOne({
-            uid: req.params.uid
-        });
+        const uid = req.params.uid;
+
+        const student = await Student.findOne({ uid });
 
         if (!student) {
             return res.status(404).json({
@@ -112,8 +124,10 @@ const getStudentByUID = async (req, res) => {
 const updateStudent = async (req, res) => {
     try {
 
+        const uid = req.params.uid;
+
         const updatedStudent = await Student.findOneAndUpdate(
-            { uid: req.params.uid },
+            { uid },
             req.body,
             {
                 new: true,
@@ -148,9 +162,9 @@ const updateStudent = async (req, res) => {
 const deleteStudent = async (req, res) => {
     try {
 
-        const deletedStudent = await Student.findOneAndDelete({
-            uid: req.params.uid
-        });
+        const uid = req.params.uid;
+
+        const deletedStudent = await Student.findOneAndDelete({ uid });
 
         if (!deletedStudent) {
             return res.status(404).json({

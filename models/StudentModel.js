@@ -28,7 +28,7 @@ const studentSchema = new mongoose.Schema(
 
         batch: {
             type: String,
-            enum: ["Medical", "Non-Medical"],
+            enum: ["Medical", "Non-Medical", "Commerce"],
             required: true
         },
 
