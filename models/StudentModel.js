@@ -7,31 +7,39 @@ const studentSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
+
         name: {
             type: String,
             required: true,
             trim: true
         },
+
         age: {
             type: Number,
-            required: true
+            required: true,
+            min: 1
         },
+
         gender: {
             type: String,
             enum: ["Male", "Female", "Other"],
             required: true
         },
+
         batch: {
             type: String,
             enum: ["Medical", "Non-Medical"],
             required: true
         },
+
         email: {
             type: String,
             required: true,
             unique: true,
+            lowercase: true,
             trim: true
         },
+
         contact: {
             type: String,
             required: true
@@ -42,6 +50,4 @@ const studentSchema = new mongoose.Schema(
     }
 );
 
-module.exports =
-    mongoose.models.Student ||
-    mongoose.model("Student", studentSchema);
+module.exports = mongoose.model("Student", studentSchema);
