@@ -61,6 +61,31 @@ const registerStudent = async (req, res) => {
     }
 };
 
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await Student.find().sort({ uid: 1 });
+
+        if (!students || students.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No Students"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            totalStudents: students.length,
+            students
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
-    registerStudent
+    registerStudent,
+    getAllStudents
 };
