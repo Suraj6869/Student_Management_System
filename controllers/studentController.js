@@ -111,8 +111,37 @@ const getStudentByUID = async (req, res) => {
     }
 };
 
+const updateStudent = async (req,res) => {
+    try{
+        const uid = Number(req.params.uid);
+
+        const updateStudent = await Student.findOneAndUpdate({uid},req.body,{
+            new: true,
+            runValidators: true
+        });
+
+        if (!updateStudent) {
+            return res.status(404).json({
+                success: false,
+                message: "Student not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            student: updateStudent
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     registerStudent,
     getAllStudents,
-    getStudentByUID
+    getStudentByUID,
+    updateStudent
 };

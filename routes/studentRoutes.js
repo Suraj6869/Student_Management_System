@@ -10,4 +10,6 @@ router.get("/id/:uid", studentController.getStudentByUID);
 
 router.post("/register", studentController.registerStudent);
 
+router.put("/id/:uid", studentController.updateStudent);
+
 module.exports = router;
