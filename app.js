@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", homeRoute);
-app.use("/students", studentRoutes);
-app.use("/teachers", teacherRoutes);
+app.use("/student", studentRoutes);
+app.use("/teacher", teacherRoutes);
 
 const PORT = process.env.PORT || 5000;
 

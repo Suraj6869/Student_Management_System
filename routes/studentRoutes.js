@@ -4,19 +4,19 @@ const router = express.Router();
 
 const studentController = require("../controllers/studentController");
 
-// Register
+// Register Student
 router.post("/register", studentController.registerStudent);
 
-// Get All
+// Get All Students
 router.get("/", studentController.getAllStudents);
 
-// Get One
-router.get("/id/:uid", studentController.getStudentByUID);
+// Get Student By UID
+router.get("/:uid", studentController.getStudentByUID);
 
-// Update
-router.put("/id/:uid", studentController.updateStudent);
+// Update Student
+router.put("/:uid", studentController.updateStudent);
 
-// Delete
-router.delete("/id/:uid", studentController.deleteStudent);
+// Delete Student
+router.delete("/:uid", studentController.deleteStudent);
 
 module.exports = router;

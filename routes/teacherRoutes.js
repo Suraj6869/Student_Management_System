@@ -1,13 +1,27 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
-const teacherController = require('../controllers/teacherController');
+const teacherController = require("../controllers/teacherController");
 
-router.post('/login', teacherController.teacherLogin);
+// ============================
+// Teacher Login
+// ============================
+router.post("/login", teacherController.teacherLogin);
 
-router.get('/students', teacherController.getAllStudents);
+// ============================
+// Get All Students
+// ============================
+router.get("/students", teacherController.getAllStudents);
 
-router.get('/students/:uid', teacherController.searchStudent);
+// ============================
+// Search Student By UID
+// ============================
+router.get("/students/:uid", teacherController.searchStudent);
+
+// ============================
+// Mark Attendance
+// ============================
+router.post("/attendance/:uid", teacherController.markAttendance);
 
 module.exports = router;
